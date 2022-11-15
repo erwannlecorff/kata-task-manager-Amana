@@ -1,0 +1,8 @@
+{
+  "name": "kata-task-manager-team-Amana",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/erwannlecorff/kata-task-manager-Amana.git",
+  "author": "Team Amana",
+  "license": "MIT"
+}
