@@ -1,3 +1,5 @@
+const {Task} = require("./task");
+
 class Parser {
 
     /**
@@ -11,8 +13,26 @@ class Parser {
         const splitText = text.split(' ')
         return [splitText.shift(), splitText.join(' ')];
     }
-
-
 }
 
-module.exports = { Parser }
+class TaskManager {
+    constructor(parser, taskStore) {
+        this.parser = parser;
+        this.store = taskStore;
+    }
+
+    handleCommand(command) {
+        const parsedCommand = this.parser.parse(command);
+        switch (parsedCommand[0]) {
+            case '+':
+                this.addTask(parsedCommand[1])
+                break;
+        }
+    }
+
+    addTask(description){
+        this.store.addTask(new Task(description))
+    }
+}
+
+module.exports = { Parser, TaskManager }
