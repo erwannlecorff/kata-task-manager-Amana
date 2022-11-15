@@ -1,6 +1,6 @@
 class TaskStore {
     constructor(taskList = []) {
-        this.taskList = taskList
+        this.taskList = taskList.map((x) => x)
     }
 
     addTask(newTask){
@@ -9,6 +9,10 @@ class TaskStore {
 
     getTasks(){
         return this.taskList.map((x) => x);
+    }
+
+    deleteTask(id){
+        this.taskList.splice(id, 1);
     }
 }
 

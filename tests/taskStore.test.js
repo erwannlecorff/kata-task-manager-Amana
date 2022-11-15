@@ -7,15 +7,28 @@ test("Store should keep track of new tasks", (t) => {
 
     taskStore.addTask(newTask);
 
-    t.ok(taskStore.taskList.includes(newTask), "The task list should contain the provided task")
-    t.end()
+    t.ok(taskStore.taskList.includes(newTask), "The task list should contain the provided task");
+    t.end();
 })
 
 test("Store should provide its internal list of tasks", (t) => {
     const listOfTasks = ['A a', 'B b', 'C c']
     const taskStore = new TaskStore(listOfTasks);
 
-    t.deepEqual(taskStore.getTasks(), listOfTasks)
-    t.notEquals(taskStore.getTasks(), listOfTasks, "The TaskStore should provide a copy of its internal list (and not the actual reference to the list)")
-    t.end()
+    const taskStoreListOfTasks = taskStore.getTasks();
+
+    t.deepEqual(taskStoreListOfTasks, listOfTasks);
+    t.notEquals(taskStoreListOfTasks, listOfTasks, "The TaskStore should provide a copy of its internal list (and not the actual reference to the list)");
+    t.end();
+})
+
+test("Store should delete a task given its id", (t) => {
+    const listOfTasks = ['A a', 'B b', 'C c']
+    const taskStore = new TaskStore(listOfTasks);
+    const deletedId = 1;
+
+    taskStore.deleteTask(deletedId);
+
+    t.equal(taskStore.taskList.includes(listOfTasks[deletedId]), false, "Expect the task list to no longer contain the task after deleting");
+    t.end();
 })
