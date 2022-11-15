@@ -1,8 +1,9 @@
 const test = require('tape')
 const { TaskStore } = require('../taskStore')
+const { Task } = require('../task')
 
 test("Store should keep track of new tasks", (t) => {
-    const newTask = "Do the dishes";
+    const newTask = new Task("Do the dishes");
     const taskStore = new TaskStore();
 
     taskStore.addTask(newTask);
@@ -12,7 +13,7 @@ test("Store should keep track of new tasks", (t) => {
 })
 
 test("Store should provide its internal list of tasks", (t) => {
-    const listOfTasks = ['A a', 'B b', 'C c']
+    const listOfTasks = [new Task('A a'), new Task('B b'), new Task('C c')]
     const taskStore = new TaskStore(listOfTasks);
 
     const taskStoreListOfTasks = taskStore.getTasks();
@@ -23,7 +24,7 @@ test("Store should provide its internal list of tasks", (t) => {
 })
 
 test("Store should delete a task given its id", (t) => {
-    const listOfTasks = ['A a', 'B b', 'C c']
+    const listOfTasks = [new Task('A a'), new Task('B b'), new Task('C c')]
     const taskStore = new TaskStore(listOfTasks);
     const deletedId = 1;
 
