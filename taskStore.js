@@ -1,5 +1,7 @@
 class TaskStore {
-    taskList = []
+    constructor(taskList = []) {
+        this.taskList = taskList
+    }
 
     addTask(newTask){
         this.taskList.push(newTask)
