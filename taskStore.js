@@ -14,6 +14,10 @@ class TaskStore {
     deleteTask(id){
         this.taskList.splice(id, 1);
     }
+
+    changeTaskDoneStatus(id, status) {
+        this.taskList[id].done = status;
+    }
 }
 
 module.exports = { TaskStore }

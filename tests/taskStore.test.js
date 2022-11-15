@@ -33,3 +33,15 @@ test("Store should delete a task given its id", (t) => {
     t.equal(taskStore.taskList.includes(listOfTasks[deletedId]), false, "Expect the task list to no longer contain the task after deleting");
     t.end();
 })
+
+test("Store should update the status of a task given its id", (t) => {
+    const listOfTasks = [new Task('A a', false), new Task('B b', true), new Task('C c')]
+    const taskStore = new TaskStore(listOfTasks);
+
+    taskStore.changeTaskDoneStatus(0, true);
+    taskStore.changeTaskDoneStatus(1, false);
+
+    t.equal(taskStore.taskList[0].done, true)
+    t.equal(taskStore.taskList[1].done, false)
+    t.end()
+})
