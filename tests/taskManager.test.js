@@ -104,3 +104,25 @@ test("TaskManager should be able to set a task as done from a command", (t) => {
     t.end();
 })
 
+test("TaskManager.markTaskAsNotDone should call the store with the right id and status", (t) => {
+    const spyStore = new SpyTaskStore();
+    const taskManager = new TaskManager(spyStore);
+
+    taskManager.markTaskAsNotDone('1')
+
+    t.equal(spyStore.changeTaskDoneStatusCalledTimes, 1);
+    t.deepEqual(spyStore.changeTaskDoneStatusCalledWith[0], {id: 0, status: false}, "TaskManager should translate human-based indexing to machine-indexing");
+    t.end();
+})
+
+test("TaskManager should be able to set a task as not done from a command", (t) => {
+    const spyStore = new SpyTaskStore();
+    const taskManager = new TaskManager(spyStore);
+
+    taskManager.handleCommand('o', '1');
+
+    t.equal(spyStore.changeTaskDoneStatusCalledTimes, 1);
+    t.deepEqual(spyStore.changeTaskDoneStatusCalledWith[0], {id: 0, status: false}, "TaskManager should translate human-based indexing to machine-indexing, and give the right status");
+    t.end();
+})
+

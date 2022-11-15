@@ -16,6 +16,9 @@ class TaskManager {
             case 'x':
                 this.markTaskAsDone(argument)
                 break;
+            case 'o':
+                this.markTaskAsNotDone(argument)
+                break;
         }
     }
 
@@ -33,6 +36,10 @@ class TaskManager {
 
     markTaskAsDone(idString) {
         this.store.changeTaskDoneStatus(this.convertHumanIndexToMachineIndex(idString), true)
+    }
+
+    markTaskAsNotDone(idString) {
+        this.store.changeTaskDoneStatus(this.convertHumanIndexToMachineIndex(idString), false)
     }
 }
 
