@@ -4,5 +4,14 @@
   "main": "index.js",
   "repository": "https://github.com/erwannlecorff/kata-task-manager-Amana.git",
   "author": "Team Amana",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "tape tests/*.test.js | tap-spec",
+    "format": "standard --fix"
+  },
+  "devDependencies": {
+    "standard": "^17.0.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^5.5.3"
+  }
 }
