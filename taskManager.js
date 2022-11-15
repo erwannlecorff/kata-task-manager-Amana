@@ -30,6 +30,9 @@ class TaskManager {
             case '-':
                 this.deleteTask(parsedCommand[1])
                 break;
+            case 'x':
+                this.markTaskAsDone(parsedCommand[1])
+                break;
         }
     }
 
@@ -39,6 +42,10 @@ class TaskManager {
 
     deleteTask(idString){
         this.store.deleteTask(Number.parseInt(idString) - 1);
+    }
+
+    markTaskAsDone(idString) {
+        this.store.changeTaskDoneStatus(Number.parseInt(idString) - 1, true)
     }
 }
 
