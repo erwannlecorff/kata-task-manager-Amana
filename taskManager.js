@@ -16,9 +16,9 @@ class Parser {
 }
 
 class TaskManager {
-    constructor(parser, taskStore) {
-        this.parser = parser;
+    constructor(taskStore, parser = new Parser()) {
         this.store = taskStore;
+        this.parser = parser;
     }
 
     handleCommand(command) {
@@ -40,12 +40,16 @@ class TaskManager {
         this.store.addTask(new Task(description))
     }
 
+    convertHumanIndexToMachineIndex(idString){
+        return Number.parseInt(idString) - 1;
+    }
+
     deleteTask(idString){
-        this.store.deleteTask(Number.parseInt(idString) - 1);
+        this.store.deleteTask(this.convertHumanIndexToMachineIndex(idString));
     }
 
     markTaskAsDone(idString) {
-        this.store.changeTaskDoneStatus(Number.parseInt(idString) - 1, true)
+        this.store.changeTaskDoneStatus(this.convertHumanIndexToMachineIndex(idString), true)
     }
 }
 

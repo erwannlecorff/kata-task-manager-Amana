@@ -50,10 +50,9 @@ test("Parser should extract the command symbol", (t) => {
 
 test("TaskManager.addTask should add a task to the store", (t) => {
     const description = "Lorem ipsum dolor sit amet";
-    const stubParser = new StubParser(undefined);
     const spyStore = new SpyTaskStore();
 
-    const taskManager = new TaskManager(stubParser, spyStore);
+    const taskManager = new TaskManager(spyStore);
     taskManager.addTask(description);
 
     t.equal(spyStore.addTaskCalledTimes, 1);
@@ -71,7 +70,7 @@ test("TaskManager should be able to add a task from a command", (t) => {
     const stubParser = new StubParser(['+', 'A a']);
     const spyStore = new SpyTaskStore();
 
-    const taskManager = new TaskManager(stubParser, spyStore);
+    const taskManager = new TaskManager(spyStore, stubParser);
 
     taskManager.handleCommand(command);
 
@@ -86,10 +85,9 @@ test("TaskManager should be able to add a task from a command", (t) => {
 })
 
 test("TaskManager.deleteTask should call the store with the right id", (t) => {
-    const stubParser = new StubParser(undefined);
     const spyStore = new SpyTaskStore();
 
-    const taskManager = new TaskManager(stubParser, spyStore);
+    const taskManager = new TaskManager(spyStore);
     taskManager.deleteTask('1')
 
     t.equal(spyStore.deleteTaskCalledTimes, 1);
@@ -102,7 +100,7 @@ test("TaskManager should be able to remove a task from a command", (t) => {
     const stubParser = new StubParser(['-', '1']);
     const spyStore = new SpyTaskStore();
 
-    const taskManager = new TaskManager(stubParser, spyStore);
+    const taskManager = new TaskManager(spyStore, stubParser);
 
     taskManager.handleCommand(command);
 
@@ -112,10 +110,9 @@ test("TaskManager should be able to remove a task from a command", (t) => {
 })
 
 test("TaskManager.markTaskAsDone should call the store with the right id and status", (t) => {
-    const stubParser = new StubParser(undefined);
     const spyStore = new SpyTaskStore();
 
-    const taskManager = new TaskManager(stubParser, spyStore);
+    const taskManager = new TaskManager(spyStore);
     taskManager.markTaskAsDone('1')
 
     t.equal(spyStore.changeTaskDoneStatusCalledTimes, 1);
@@ -128,7 +125,7 @@ test("TaskManager should be able to set a task as done from a command", (t) => {
     const stubParser = new StubParser(['x', '1']);
     const spyStore = new SpyTaskStore();
 
-    const taskManager = new TaskManager(stubParser, spyStore);
+    const taskManager = new TaskManager(spyStore, stubParser);
 
     taskManager.handleCommand(command);
 
