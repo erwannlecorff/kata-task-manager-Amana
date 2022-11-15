@@ -1,37 +1,20 @@
 const {Task} = require("./task");
 
-class Parser {
-
-    /**
-     * Splits a string between the command symbol and the rest of the text
-     *
-     * The command symbol is defined as the first "word" of the string
-     * @param text
-     * @returns [commandSymbol, restOfMessage]
-     */
-    parse(text){
-        const splitText = text.split(' ')
-        return [splitText.shift(), splitText.join(' ')];
-    }
-}
-
 class TaskManager {
-    constructor(taskStore, parser = new Parser()) {
+    constructor(taskStore) {
         this.store = taskStore;
-        this.parser = parser;
     }
 
-    handleCommand(command) {
-        const parsedCommand = this.parser.parse(command);
-        switch (parsedCommand[0]) {
+    handleCommand(command, argument) {
+        switch (command.toLowerCase()) {
             case '+':
-                this.addTask(parsedCommand[1])
+                this.addTask(argument)
                 break;
             case '-':
-                this.deleteTask(parsedCommand[1])
+                this.deleteTask(argument)
                 break;
             case 'x':
-                this.markTaskAsDone(parsedCommand[1])
+                this.markTaskAsDone(argument)
                 break;
         }
     }
@@ -53,4 +36,4 @@ class TaskManager {
     }
 }
 
-module.exports = { Parser, TaskManager }
+module.exports = { TaskManager }
