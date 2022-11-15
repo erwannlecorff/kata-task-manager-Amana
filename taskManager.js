@@ -11,6 +11,8 @@ class Parser {
         const splitText = text.split(' ')
         return [splitText.shift(), splitText.join(' ')];
     }
+
+
 }
 
 module.exports = { Parser }
