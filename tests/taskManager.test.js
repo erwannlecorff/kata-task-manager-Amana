@@ -15,10 +15,16 @@ class StubParser {
 class SpyTaskStore {
     addTaskCalledWith = [];
     addTaskCalledTimes = 0;
-
     addTask(task){
         this.addTaskCalledWith.push(task);
         this.addTaskCalledTimes++;
+    }
+
+    deleteTaskCalledWith = [];
+    deleteTaskCalledTimes = 0;
+    deleteTask(id){
+        this.deleteTaskCalledWith.push(id);
+        this.deleteTaskCalledTimes++;
     }
 }
 
@@ -66,6 +72,32 @@ test("TaskManager should be able to add a task from a command", (t) => {
     } catch (e) {
         t.fail(e);
     }
+    t.end();
+})
+
+test("TaskManager.deleteTask should call the store with the right id", (t) => {
+    const stubParser = new StubParser(undefined);
+    const spyStore = new SpyTaskStore();
+
+    const taskManager = new TaskManager(stubParser, spyStore);
+    taskManager.deleteTask('1')
+
+    t.equal(spyStore.deleteTaskCalledTimes, 1);
+    t.equal(spyStore.deleteTaskCalledWith[0], 0, "TaskManager should translate human-based indexing to machine-indexing");
+    t.end();
+})
+
+test("TaskManager should be able to remove a task from a command", (t) => {
+    const command = "- 1"
+    const stubParser = new StubParser(['-', '1']);
+    const spyStore = new SpyTaskStore();
+
+    const taskManager = new TaskManager(stubParser, spyStore);
+
+    taskManager.handleCommand(command);
+
+    t.equal(spyStore.deleteTaskCalledTimes, 1);
+    t.equal(spyStore.deleteTaskCalledWith[0], 0, "TaskManager should translate human-based indexing to machine-indexing");
     t.end();
 })
 

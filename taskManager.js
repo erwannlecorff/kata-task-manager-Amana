@@ -27,11 +27,18 @@ class TaskManager {
             case '+':
                 this.addTask(parsedCommand[1])
                 break;
+            case '-':
+                this.deleteTask(parsedCommand[1])
+                break;
         }
     }
 
     addTask(description){
         this.store.addTask(new Task(description))
+    }
+
+    deleteTask(idString){
+        this.store.deleteTask(Number.parseInt(idString) - 1);
     }
 }
 
